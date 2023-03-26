@@ -27,6 +27,7 @@ def download(url, filename):  # 下载图片到本地文件夹
         response = requests.get(url, headers=headers)
         f.write(response.content)
         f.flush()
+    # 如果文件的大小为0，说明写入失败，删除
     if os.path.getsize(filepath) == 0:
         os.remove(filepath)
 
@@ -49,8 +50,6 @@ def parse(save_dir, html):  # 解析网页源代码
 
 
 if __name__ == '__main__':
-    # url = re.sub(r'(_(\d{2,3})x(\d{2,3}))', "_1920x1080", "https://bing.com/th?id=OHR.WildAnza_ZH-CN2384861750_800x480.jpg")
-    # print(url)
     save_dir = "/Users/sam/Pictures/壁纸/bing/"
     for page in range(1, 10):  # 爬取页面的范围，可以随意更改
         try:
