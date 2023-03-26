@@ -52,7 +52,7 @@ if __name__ == '__main__':
     # url = re.sub(r'(_(\d{2,3})x(\d{2,3}))', "_1920x1080", "https://bing.com/th?id=OHR.WildAnza_ZH-CN2384861750_800x480.jpg")
     # print(url)
     save_dir = "/Users/sam/Pictures/壁纸/bing/"
-    for page in range(1, 20):  # 爬取页面的范围，可以随意更改
+    for page in range(1, 10):  # 爬取页面的范围，可以随意更改
         try:
             url = 'https://bing.ioliu.cn/?p=' + str(page)
             print("正在抓取第", page, "页", url)
