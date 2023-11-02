@@ -2,6 +2,7 @@
 import os
 import re
 import requests
+import sys
 
 
 def get_one_page(url):  # 解析给定url的网页源代码
@@ -22,6 +23,7 @@ def download(url, filename):  # 下载图片到本地文件夹
                       'Chrome/66.0.3359.181 Safari/537.36'
     }
     if os.path.exists(filepath):  # 判断图片路径是否已经存在，如果存在就不保存了
+        print("文件已经存在了，跳过: %s" % filepath)
         return
     with open(filepath, 'wb') as f:  # 把图片以二进制形式写入到本地
         response = requests.get(url, headers=headers)
@@ -50,7 +52,21 @@ def parse(save_dir, html):  # 解析网页源代码
 
 
 if __name__ == '__main__':
-    save_dir = "/Users/sam/Pictures/壁纸/bing/"
+    if len(sys.argv) == 1 :
+        print("存储路径设置错误，示例： \"python main.py save_dir pages\"")
+        sys.exit(-1)
+    
+    page = 10
+    
+    if len(sys.argv) == 3 :
+        page = int(sys.argv[2])
+    
+    save_dir = sys.argv[1] # "/Users/sam/Pictures/壁纸/bing/"
+    r = save_dir[len(save_dir)-1] 
+    if r != "/" and r != "\\" :
+        save_dir += "/"
+    print("存储位置：%s, 下载页数: %d" % (save_dir, page))
+
     for page in range(1, 10):  # 爬取页面的范围，可以随意更改
         try:
             url = 'https://bing.ioliu.cn/?p=' + str(page)
